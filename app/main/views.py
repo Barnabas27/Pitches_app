@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from ..models import Comment,User,Pitch
-from .forms import CommentForm,UpdateProfile,UpdateProfile
+from .forms import CommentForm,UpdateProfile,UpdateProfile,PitchForm
 from flask_login import login_required, current_user
 from .. import db,photos
 # import markdown2
@@ -13,12 +13,12 @@ def index():
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
-    pitches = Pitch.query.filter_by(user_id = user_id).all()
+    pitches = Pitch.query.filter_by(user = user).all()
 
     if user is None:
         abort(404)
 
-    return render_template("profile/profile.html", user = user,pitches=pitches)
+    return render_template("profile/profile.html", user = user,pitches=pitches )
 
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
@@ -73,19 +73,56 @@ def displaypickup_linesCategory():
 
 @main.route('/category/interview', methods = ['GET','POST'])
 def displayinterviewCategory():
-    interviewPitches = Pitch.get_pitches('interview')
-    return render_template ('category/interview.html',interviewPitches = interviewPitches)
+    interviewPitches = Pitch.get_pitches('interview_pitch')
+    return render_template ('category/interview_pitch.html',interviewPitches = interviewPitches)
 
 @main.route('/category/product', methods = ['GET','POST'])
 def displayproductCategory():
-    productPitches = Pitch.get_pitches('product')
-    return render_template ('category/product.html',productPitches = productPitches)
+    productPitches = Pitch.get_pitches('product_pitch')
+    return render_template ('category/product_pitch.html',productPitches = productPitches )
 
 @main.route('/category/promotion', methods = ['GET','POST'])
 def displaypromotionCategory():
-    promotionPitches = Pitch.get_pitches('promotion')
-    return render_template ('category/promotion.html',promotionPitches = promotionPitches)
+    promotionPitches = Pitch.get_pitches('promotion_pitch')
+    return render_template ('category/promotion_pitch.html',promotionPitches = promotionPitches)
 
 @main.route('/about')
 def about():
     return render_template('about.html',title = 'About')
+# @main.route('/comment/<int:id>',methods = ['GET','POST'])
+# @login_required
+# def viewPitch(id):
+#     thispitch = Pitch.getPitchId(id)
+#     comments = Comment.getComments(id)
+    
+#     if CommentForm.validate_on_submit():
+#         comment = CommentForm.text.data
+#         CommentForm =CommentForm()
+    
+#         newComment = Comment(comment = comment, user = current_user,pitch_id = pitch)
+#         newComment = saveComment()
+#     return render_template('comment.html',CommentForm = CommentForm, comments = comments,pitch = thispitch)
+
+
+@main.route('/comment/<int:id>',methods= ['POST','GET'])
+
+@login_required
+def viewPitch(id):
+    thispitch = Pitch.getPitchId(id)
+    comments = Comment.getComments(id)
+    if request.args.get("like"):
+        thispitch.likes = thispitch.likes + 1
+        db.session.add(thispitch)
+        db.session.commit()
+        return redirect("/comment/{pitch_id}".format(pitch_id=pitch.id))
+    elif request.args.get("dislike"):
+        thispitch.dislikes = thispitch.dislikes + 1
+        db.session.add(thispitch)
+        db.session.commit()
+        return redirect("/comment/{pitch_id}".format(pitch_id=pitch.id))
+    commentForm = CommentForm()
+    if commentForm.validate_on_submit():
+        comment = commentForm.text.data
+        newComment = Comment(comment = comment,user = current_user,pitch_id = id)
+        newComment.saveComment()
+    return render_template('comment.html',commentForm = commentForm,comments = comments,pitch = thispitch)
