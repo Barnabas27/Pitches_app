@@ -1,0 +1,15 @@
+{% extends 'bootstrap/base.html'%}
+{%import 'macros.html' as macro%}
+{%block navbar %}
+    {% include 'navbar.html' %}
+{% endblock %}
+{%block content%}
+<div class="jumbotron">
+    <h1>Here displays the pick-up lines pitches</h1>
+</div>
+<div class="container">
+    <div class="row">
+        {{macro.displayPitches(pickup_linesPitches)}}
+    </div>
+</div>
+{%endblock%}
