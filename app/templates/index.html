@@ -1,4 +1,86 @@
-<!-- {%extends 'bootstrap/base.html'%}
+{%extends 'bootstrap/base.html'%}
 {%block navbar%}
 {%include 'navbar.html'%}
-{%endblock%} -->
+{%endblock%}
+
+
+{% block content %}
+<div class="">
+  <div class="jumbotron jumbotron-fluid" style="background-image: url('https://unsplash.com/photos/JnB8Gio4GZo');">
+    <div class="container text-white text-center">
+      <h2 class="card-title h1-responsive font-bold">Welcome to Pitch App</h2>
+      <p class="lead">We are all a node, a center to a universe. With that connectivity here is Pitch App that let's you pitch in the provided categories and you never know that one minute could be the change in your life.</p>
+      <a class="btn btn-success btn-md" href="{{url_for('main.new_pitch')}}"><i class="fas fa-clone left"></i>Create Pitch</a>
+    </div>
+  </div>
+
+<h3 class="text-center text-uppercase text-bold">Categories</h3>
+<hr>
+
+  <div class="row m-3">
+    <div class="col-sm">
+      <div class=" card col-sm pt-2">
+        <div class="well well-lg p-3" style="text-align: center; box-shadow: 0 7px 8px 0 rgba(0,0,0,0.8), 0 10px 10px 0 rgba(0,0,0,0.8); background-color: powderblue;">
+            <h3 class="">Interviews Pitches</h3>
+            <hr>
+            <p>Looking for a job? Place a pitch here: let your skills sell you> </p>
+                <a href="{{url_for('main.displayinterviewCategory')}}" class="btn btn-primary btn-center -center">
+                View Pitch</a>
+        </div>
+    </div>
+    </div>
+    <div class="col-sm">
+      <div class=" card col-sm mt-2">
+        <div class="well well-lg p-3" style="text-align: center; box-shadow: 0 7px 8px 0 rgba(0,0,0,0.8), 0 10px 10px 0 rgba(0,0,0,0.8); background-color: powderblue;">
+            <h3>Promotion Pitches</h3>
+            <hr>
+            <p>Promotional pitches can provide an effective way to advertise you and what you do.  </p>
+                <a href="{{url_for('main.displaypromotionCategory')}}" class="btn btn-primary btn-center -center">
+                View Pitch</a>
+        </div>
+    </div>
+    </div>
+  </div>
+
+  <div class="row m-3">
+    <div class="col-sm">
+      <div class=" card col-sm mt-2">
+        <div class="well well-lg p-3" style="text-align: center; box-shadow: 0 7px 8px 0 rgba(0,0,0,0.8), 0 10px 10px 0 rgba(0,0,0,0.8); background-color: powderblue;">
+            <h3>Product Pitches</h3>
+            <hr>
+            <p> Your products need to really be visible to the world.Let your star shine and shine so </p>
+                <a href="{{url_for('main.displayproductCategory')}}" class="btn btn-primary btn-center -center">
+                View Pitch</a>
+        </div>
+      </div>
+      
+    </div>
+    <div class="col-sm">
+      <div class=" card col-sm mt-2">
+        <div class="well well-lg p-3" style="text-align: center; box-shadow: 0 7px 8px 0 rgba(0,0,0,0.8), 0 10px 10px 0 rgba(0,0,0,0.8); background-color: powderblue;">
+            <h3>Pickup Lines Pitches</h3>
+            <hr>
+            <p> Here are the great pickup lines that should be included in your pitch</p>
+                <a href="{{url_for('main.displaypickup_linesCategory')}}" class="btn btn-primary btn-center -center">
+                View Pitch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Footer -->
+<footer class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="">pitch</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+</div>
+
+{% endblock %}

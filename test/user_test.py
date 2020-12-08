@@ -1,6 +1,6 @@
 import unittest
 from models import user
-User = user.User
+# User = user.User
 
  class UserTest(unittest.Testcase):
      
