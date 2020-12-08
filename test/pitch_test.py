@@ -5,8 +5,8 @@ import unittest
 class PitchTest(unittest.TestCase):
     
     def setUp(self):
-    self.user_Bush = ('Barbez','12345','b@gmail.com')
-    self.new_pitch = Pitch(id =1,pitch_title ='Test',pitch_content='this is the pitch',category='interview',user = self.user_Bush, likes = 0,dislikes =0)
+        self.user_Bush = User(username='Barbez',password='12345',email = 'b@gmail.com')
+        self.new_pitch = Pitch(id =1,pitch_title ='Test',pitch_content='this is the pitch',category='interview',user = self.user_Bush, likes = 0,dislikes =0)
     
     def tearDown(self):
         User.query.delete()
