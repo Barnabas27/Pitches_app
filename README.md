@@ -1,6 +1,6 @@
 # PITCH APP
 ## Author 
-[Barnabas Kamau] (https://github.com/Barnabas27)
+[Barnabas Kamau](https://github.com/Barnabas27)
 
 ## Live Link
 [here:](https://warm-pitches.herokuapp.com/)
